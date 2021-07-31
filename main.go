@@ -2,9 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"os"
 
 	"github.com/go-redis/redis/v8"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -43,7 +46,10 @@ func main() {
 	}
 
 	e := echo.New()
+	godotenv.Load()
+	port := os.Getenv("PORT")
+	address := fmt.Sprintf("%s:%s", "0.0.0.0", port)
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 	e.GET("/covid/stats", covidstats.HandleStats(cache, db))
-	e.Logger.Fatal(e.Start(":8000"))
+	e.Logger.Fatal(e.Start(address))
 }
