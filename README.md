@@ -19,3 +19,4 @@ India(assume India specific coordinates only) and the last update time of data.
 * Use any of the publicly available APIs for fetching Covid-19 data and reverse
 geocoding.
 
+
